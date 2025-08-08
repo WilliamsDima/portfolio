@@ -11,8 +11,10 @@ body {
 		Helvetica\Neue, Arial, Noto\Sans, sans-serif, Gilroy-Medium, Gilroy-Bold;
 	color: colors.$white;
 	font-size: 1.4rem;
-	overflow: hidden;
-	overflow-y: scroll;
 	overflow-x: hidden;
-	position: fixed;
+	scrollbar-width: none; /* Firefox */
+}
+
+body::-webkit-scrollbar {
+	display: none; /* Chrome/Safari */
 }
