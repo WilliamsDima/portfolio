@@ -13,6 +13,10 @@ body {
 	font-size: 1.4rem;
 	overflow-x: hidden;
 	scrollbar-width: none; /* Firefox */
+
+	&.hidden {
+		overflow: hidden;
+	}
 }
 
 body::-webkit-scrollbar {

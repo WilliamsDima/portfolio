@@ -25,20 +25,22 @@ const Layout: FC<Props> = ({ children }) => {
 	}, [])
 
 	return (
-		<div className='parallax-container'>
-			<div className='layer stars'>
-				<div id='stars'></div>
-				<div id='stars2'></div>
-				<div id='stars3'></div>
-			</div>
+		<div className='page'>
+			<div className='parallax-container'>
+				<div className='layer stars'>
+					<div id='stars'></div>
+					<div id='stars2'></div>
+					<div id='stars3'></div>
+				</div>
 
-			<div className='layer sun'>
-				<div className='sun-object'>
-					<Sun />
+				<div className='layer sun'>
+					<div className='sun-object'>
+						<Sun />
+					</div>
 				</div>
 			</div>
 
-			{children}
+			<div className='content'>{children}</div>
 		</div>
 	)
 }

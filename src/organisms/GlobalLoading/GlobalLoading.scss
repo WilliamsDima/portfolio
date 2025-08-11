@@ -1,11 +1,24 @@
 @use "../../assets/styles/colors.scss" as colors;
 
-.loading {
+.loading-page {
 	width: 100vw;
 	height: 100vh;
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	background-color: colors.$bg;
+	position: absolute;
+
+	opacity: 0;
+	z-index: 0;
+	transition: opacity 0.5s ease;
+	pointer-events: none;
+
+	&.active {
+		opacity: 1;
+		pointer-events: auto;
+		z-index: 100;
+	}
 }
 
 .solar {
@@ -239,19 +252,19 @@
 	}
 }
 
-.loader {
+.loader-text {
 	font-size: 2em;
 	font-weight: 900;
 	position: absolute;
 	bottom: 20%;
 }
-.loader > * {
+.loader-text > * {
 	color: colors.$main;
 }
-.loader span {
+.loader-text span {
 	display: inline-flex;
 }
-.loader span:nth-child(2) {
+.loader-text span:nth-child(2) {
 	letter-spacing: -1em;
 	overflow: hidden;
 	animation: reveal 1500ms cubic-bezier(0.645, 0.045, 0.355, 1) infinite

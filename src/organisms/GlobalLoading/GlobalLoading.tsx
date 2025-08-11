@@ -1,8 +1,38 @@
+import { useEffect, useState } from "react"
 import "./GlobalLoading.scss"
+import cn from "classnames"
 
 const GlobalLoading = () => {
+	const [loading, setLoading] = useState(true)
+
+	useEffect(() => {
+		document.body.classList.add("hidden")
+		const onLoad = () => {
+			setTimeout(() => {
+				setLoading(false)
+
+				document.body.classList.remove("hidden")
+			}, 1000)
+		}
+
+		if (document.readyState === "complete") {
+			setTimeout(() => {
+				setLoading(false)
+				document.body.classList.remove("hidden")
+			}, 1000)
+		} else {
+			window.addEventListener("load", onLoad)
+
+			return () => window.removeEventListener("load", onLoad)
+		}
+	}, [])
+
 	return (
-		<div className='loading'>
+		<div
+			className={cn("loading-page", {
+				["active"]: loading,
+			})}
+		>
 			<div className='solar'>
 				<i className='mercury'></i>
 				<i className='venus'></i>
@@ -15,7 +45,7 @@ const GlobalLoading = () => {
 				<i className='neptune'></i>
 			</div>
 
-			<div className='loader'>
+			<div className='loader-text'>
 				<span>&lt;</span>
 				<span>LOADING</span>
 				<span>/&gt;</span>

@@ -15,6 +15,7 @@
 	background-position: center;
 	background-size: cover;
 	will-change: transform;
+	z-index: 1;
 }
 
 .sun-object {
@@ -30,4 +31,9 @@
 		right: -80px;
 		bottom: -50px;
 	}
+}
+
+.content {
+	position: relative;
+	z-index: 10;
 }
