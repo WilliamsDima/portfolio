@@ -1,6 +1,6 @@
 import { useFrame, useLoader } from "@react-three/fiber"
 import { FC, useRef } from "react"
-import { AxesHelper, Group, TextureLoader } from "three"
+import { Group, TextureLoader } from "three"
 import { Moon } from "./Moon"
 
 type Props = {
@@ -43,7 +43,9 @@ export const Planet: FC<Props> = ({
 				<sphereGeometry args={[size, 32, 32]} />
 				<meshStandardMaterial map={texture} />
 
-				<primitive object={new AxesHelper(size * 1.5)} />
+				{/* оси координат для ориентации */}
+				{/* <primitive object={new AxesHelper(size * 1.5)} /> */}
+				{/* <axesHelper args={[size * 1.5]} /> */}
 			</mesh>
 
 			{moon && <Moon />}

@@ -1,7 +1,6 @@
 import { useFrame, useLoader } from "@react-three/fiber"
 import { useRef } from "react"
 import {
-	AxesHelper,
 	BufferGeometry,
 	Float32BufferAttribute,
 	Group,
@@ -62,7 +61,9 @@ export const Saturn = () => {
 			<mesh rotation={[0, 0, solarSettings.saturn.tilt]}>
 				<sphereGeometry args={[solarSettings.saturn.size, 32, 32]} />
 				<meshStandardMaterial map={planetTexture} />
-				<primitive object={new AxesHelper(solarSettings.saturn.size * 1.5)} />
+
+				{/* оси координат для ориентации */}
+				{/* <primitive object={new AxesHelper(solarSettings.saturn.size * 1.5)} /> */}
 			</mesh>
 
 			{/* Кольцо */}

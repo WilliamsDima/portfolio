@@ -1,5 +1,5 @@
-import React, { useState } from "react"
-import { Canvas } from "@react-three/fiber"
+import React, { useRef, useState } from "react"
+import { Canvas, useFrame, useThree } from "@react-three/fiber"
 import { OrbitControls, Stars } from "@react-three/drei"
 import { MilkyWay } from "./MilkyWay"
 import { Meteors } from "./Meteors"
@@ -8,14 +8,56 @@ import { OrbitPath } from "./OrbitPath"
 import { Saturn } from "./Saturn"
 import { Sun } from "./Sun"
 import { planetsSettings } from "./settings"
+import * as THREE from "three"
+
+function CameraAnimation({ targetPosition = [5, 10, 50], duration = 5000 }) {
+	const { camera } = useThree()
+	const controlsRef = useRef(null)
+	const startPos = useRef(camera.position.clone())
+	const startTime = useRef(performance.now())
+	const [animating, setAnimating] = useState(true)
+
+	useFrame(() => {
+		if (!animating) return
+
+		const elapsed = performance.now() - startTime.current
+		let t = Math.min(elapsed / duration, 1)
+
+		// плавное замедление в конце
+		t = t * (2 - t) // ease-out
+
+		camera.position.lerpVectors(
+			startPos.current,
+			new THREE.Vector3(...targetPosition),
+			t
+		)
+		camera.lookAt(0, 0, 0)
+
+		if (elapsed >= duration) {
+			setAnimating(false)
+			if (controlsRef.current) controlsRef.current.enabled = true
+		}
+	})
+
+	return (
+		<OrbitControls
+			ref={controlsRef}
+			enabled={!animating}
+			minDistance={15} // минимальная дистанция камеры от центра
+			maxDistance={1300} // максимальная дистанция
+		/>
+	)
+}
 
 const SolarSystem = () => {
 	const [starsCount] = useState(20000)
+
 	return (
-		<Canvas camera={{ position: [0, 40, 130], fov: 60 }}>
+		<Canvas camera={{ position: [0, 40, 1400], fov: 60 }}>
 			<ambientLight intensity={0.3} />
 			<pointLight position={[0, 0, 0]} intensity={2} />
-			<OrbitControls />
+
+			<CameraAnimation />
 
 			<MilkyWay />
 			<Meteors />
