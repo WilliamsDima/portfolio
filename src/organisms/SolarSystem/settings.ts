@@ -1,0 +1,75 @@
+export const planetsSettings = {
+	earth: {
+		distance: 20,
+		size: 1,
+		orbitSpeed: 0.5,
+		rotationSpeed: 0.01,
+		tilt: (23.5 * Math.PI) / 180,
+		textureUrl: "./textures/earth.jpg",
+	},
+	mars: {
+		distance: 25,
+		size: 0.53,
+		orbitSpeed: 0.45,
+		rotationSpeed: 0.008,
+		tilt: (25.2 * Math.PI) / 180,
+		textureUrl: "./textures/mars.jpg",
+	},
+	mercury: {
+		distance: 10,
+		size: 0.38,
+		orbitSpeed: 0.8,
+		rotationSpeed: 0.004,
+		tilt: 0.0349,
+		textureUrl: "./textures/mercury.jpg",
+	},
+	uranus: {
+		distance: 65,
+		size: 1.2,
+		orbitSpeed: 0.2,
+		rotationSpeed: 0.015,
+		tilt: (97.8 * Math.PI) / 180,
+		textureUrl: "./textures/uranus.jpg",
+	},
+	venus: {
+		distance: 15,
+		size: 0.95,
+		orbitSpeed: 0.6,
+		rotationSpeed: 0.002,
+		tilt: (177.4 * Math.PI) / 180,
+		textureUrl: "./textures/venus.jpg",
+	},
+	saturn: {
+		distance: 50,
+		size: 2.0,
+		orbitSpeed: 0.25,
+		rotationSpeed: 0.018,
+		tilt: (26.7 * Math.PI) / 180,
+		textureUrl: "./textures/saturn.jpg",
+	},
+	neptune: {
+		distance: 80,
+		size: 1.2,
+		orbitSpeed: 0.15,
+		rotationSpeed: 0.014,
+		tilt: (28.3 * Math.PI) / 180,
+		textureUrl: "./textures/neptune.jpg",
+	},
+	jupiter: {
+		distance: 35,
+		size: 2.5,
+		orbitSpeed: 0.3,
+		rotationSpeed: 0.02,
+		tilt: (3.1 * Math.PI) / 180,
+		textureUrl: "./textures/jupiter.jpg",
+	},
+}
+
+export const solarSettings = {
+	sun: {
+		size: 7,
+		rotationY: 0.05,
+		emissiveIntensity: 0.15, // яркость солнца
+	},
+	...planetsSettings,
+}
