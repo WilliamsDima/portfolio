@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { Canvas } from "@react-three/fiber"
 import { OrbitControls, Stars } from "@react-three/drei"
 import { MilkyWay } from "./MilkyWay"
@@ -10,6 +10,7 @@ import { Sun } from "./Sun"
 import { planetsSettings } from "./settings"
 
 const SolarSystem = () => {
+	const [starsCount] = useState(20000)
 	return (
 		<Canvas camera={{ position: [0, 40, 130], fov: 60 }}>
 			<ambientLight intensity={0.3} />
@@ -19,9 +20,9 @@ const SolarSystem = () => {
 			<MilkyWay />
 			<Meteors />
 			<Stars
-				radius={300}
+				radius={400}
 				depth={60}
-				count={20000}
+				count={starsCount}
 				saturation={10}
 				factor={7}
 				fade
@@ -31,7 +32,8 @@ const SolarSystem = () => {
 			<Sun />
 			<Saturn />
 
-			{Object.values(planetsSettings).map((planet, i) => {
+			{Object.keys(planetsSettings).map((key, i) => {
+				const planet = planetsSettings[key]
 				return (
 					<React.Fragment key={i}>
 						<OrbitPath distance={planet.distance} />
@@ -42,6 +44,7 @@ const SolarSystem = () => {
 							orbitSpeed={planet.orbitSpeed}
 							rotationSpeed={planet.rotationSpeed}
 							tilt={planet.tilt}
+							moon={key === "earth"}
 						/>
 					</React.Fragment>
 				)

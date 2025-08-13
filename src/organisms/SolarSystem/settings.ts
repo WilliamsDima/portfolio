@@ -71,5 +71,9 @@ export const solarSettings = {
 		rotationY: 0.05,
 		emissiveIntensity: 0.15, // яркость солнца
 	},
+	moon: {
+		size: 0.27,
+		textureUrl: "./textures/moon.jpg",
+	},
 	...planetsSettings,
 }
