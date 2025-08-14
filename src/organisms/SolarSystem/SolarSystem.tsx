@@ -5,7 +5,6 @@ import { MilkyWay } from "./MilkyWay"
 import { Meteors } from "./Meteors"
 import { Planet } from "./Planet"
 import { OrbitPath } from "./OrbitPath"
-import { Saturn } from "./Saturn"
 import { Sun } from "./Sun"
 import { planetsSettings } from "./settings"
 import * as THREE from "three"
@@ -52,18 +51,6 @@ const CameraAnimation: FC = () => {
 const SolarSystem = () => {
 	const [starsCount] = useState(20000)
 
-	// const [selectedPlanet, setSelectedPlanet] = useState<THREE.Group | null>(null)
-
-	// useFrame(() => {
-	// 	if (selectedPlanet) {
-	// 		const target = selectedPlanet.position
-	// 			.clone()
-	// 			.add(new THREE.Vector3(5, 2, 5))
-	// 		camera.position.lerp(target, 0.05)
-	// 		camera.lookAt(selectedPlanet.position)
-	// 	}
-	// })
-
 	return (
 		<Canvas camera={{ position: [0, 40, 1400], fov: 60 }}>
 			{/* Показывает FPS и нагрузку */}
@@ -87,7 +74,6 @@ const SolarSystem = () => {
 			/>
 
 			<Sun />
-			<Saturn />
 
 			{Object.keys(planetsSettings).map((key, i) => {
 				const planet = planetsSettings[key]

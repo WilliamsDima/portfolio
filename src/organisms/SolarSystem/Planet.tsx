@@ -3,11 +3,11 @@ import { FC, useEffect, useRef, useState } from "react"
 import { Group, TextureLoader } from "three"
 import { Moon } from "./Moon"
 import { PlanetType } from "./settings"
-import { Html } from "@react-three/drei"
 import * as THREE from "three"
-import styles from "./Planet.module.scss"
 import { useActions } from "@hooks/useActions"
 import { useAppSelector } from "@hooks/useStore"
+import { PlanetLabel } from "./PlanetLabel"
+import { Saturn } from "./Saturn"
 
 type Props = {
 	planet: PlanetType
@@ -66,7 +66,25 @@ export const Planet: FC<Props> = ({ planet }) => {
 		}
 	}, [selectedPlanet])
 
-	return (
+	return planet.name === "saturn" ? (
+		<>
+			<Saturn
+				onClick={() => planet.label && onSelect(planetRef.current)}
+				planetRef={planetRef}
+				label={
+					(selectedPlanet
+						? selectedPlanet?.label === planet.label && !!planet.label
+						: !!planet.label) && (
+						<PlanetLabel
+							onClick={() => planet.label && onSelect(planetRef.current)}
+							planet={planet}
+							selected={selected}
+						/>
+					)
+				}
+			/>
+		</>
+	) : (
 		<group
 			ref={planetRef}
 			onClick={() => planet.label && onSelect(planetRef.current)}
@@ -83,46 +101,11 @@ export const Planet: FC<Props> = ({ planet }) => {
 			{(selectedPlanet
 				? selectedPlanet?.label === planet.label && !!planet.label
 				: !!planet.label) && (
-				<group>
-					{/* палочка-указатель */}
-					{(() => {
-						const labelOffset = Math.max(3, planet.size * 0.9) // высота палочки над планетой
-
-						const yMid = planet.size + labelOffset / 2 // середина для позиционирования цилиндра
-
-						return (
-							<>
-								<mesh position={[0, yMid, 0]}>
-									{/* радиус палочки подбери на вкус (0.03–0.08) */}
-									<cylinderGeometry args={[0.05, 0.05, labelOffset, 12]} />
-									<meshBasicMaterial color='white' />
-
-									{selected && (
-										<Html
-											position={[0, 3, 0]}
-											distanceFactor={20}
-											transform // делаем Html частью сцены, а не абсолютным
-											sprite // Html всегда смотрит на камеру
-										>
-											<div className={styles.planetText}>{planet.label}</div>
-										</Html>
-									)}
-								</mesh>
-
-								{!selected && (
-									<Html
-										position={[0, 5, 0]}
-										distanceFactor={20}
-										transform // делаем Html частью сцены, а не абсолютным
-										sprite // Html всегда смотрит на камеру
-									>
-										<div className={styles.planetText}>{planet.label}</div>
-									</Html>
-								)}
-							</>
-						)
-					})()}
-				</group>
+				<PlanetLabel
+					onClick={() => planet.label && onSelect(planetRef.current)}
+					planet={planet}
+					selected={selected}
+				/>
 			)}
 			{!!planet.moon && <Moon />}
 		</group>

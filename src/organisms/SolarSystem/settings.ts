@@ -1,4 +1,15 @@
 import { ModalPageType } from "./../../store/slice/appSlice"
+
+export type PlanetName =
+	| "earth"
+	| "mars"
+	| "mercury"
+	| "uranus"
+	| "venus"
+	| "saturn"
+	| "neptune"
+	| "jupiter"
+
 export type PlanetType = {
 	distance: number
 	size: number
@@ -9,6 +20,7 @@ export type PlanetType = {
 	moon?: boolean
 	label?: string
 	modalPage?: ModalPageType
+	name: PlanetName
 }
 
 export const planetsSettings: Record<string, PlanetType> = {
@@ -22,6 +34,7 @@ export const planetsSettings: Record<string, PlanetType> = {
 		moon: true,
 		label: "Обо мне",
 		modalPage: "about",
+		name: "earth",
 	},
 	mars: {
 		distance: 25,
@@ -32,6 +45,7 @@ export const planetsSettings: Record<string, PlanetType> = {
 		textureUrl: "./textures/mars.jpg",
 		label: "Проекты",
 		modalPage: "projects",
+		name: "mars",
 	},
 	mercury: {
 		distance: 10,
@@ -40,6 +54,7 @@ export const planetsSettings: Record<string, PlanetType> = {
 		rotationSpeed: 0.004,
 		tilt: 0.0349,
 		textureUrl: "./textures/mercury.jpg",
+		name: "mercury",
 	},
 	uranus: {
 		distance: 65,
@@ -48,6 +63,7 @@ export const planetsSettings: Record<string, PlanetType> = {
 		rotationSpeed: 0.015,
 		tilt: (97.8 * Math.PI) / 180,
 		textureUrl: "./textures/uranus.jpg",
+		name: "uranus",
 	},
 	venus: {
 		distance: 15,
@@ -56,6 +72,7 @@ export const planetsSettings: Record<string, PlanetType> = {
 		rotationSpeed: 0.002,
 		tilt: (177.4 * Math.PI) / 180,
 		textureUrl: "./textures/venus.jpg",
+		name: "venus",
 	},
 	saturn: {
 		distance: 50,
@@ -66,6 +83,7 @@ export const planetsSettings: Record<string, PlanetType> = {
 		textureUrl: "./textures/saturn.jpg",
 		label: "Навыки",
 		modalPage: "skils",
+		name: "saturn",
 	},
 	neptune: {
 		distance: 80,
@@ -74,6 +92,7 @@ export const planetsSettings: Record<string, PlanetType> = {
 		rotationSpeed: 0.014,
 		tilt: (28.3 * Math.PI) / 180,
 		textureUrl: "./textures/neptune.jpg",
+		name: "neptune",
 	},
 	jupiter: {
 		distance: 35,
@@ -82,6 +101,7 @@ export const planetsSettings: Record<string, PlanetType> = {
 		rotationSpeed: 0.02,
 		tilt: (3.1 * Math.PI) / 180,
 		textureUrl: "./textures/jupiter.jpg",
+		name: "jupiter",
 	},
 }
 
