@@ -1,4 +1,17 @@
-export const planetsSettings = {
+import { ModalPageType } from "./../../store/slice/appSlice"
+export type PlanetType = {
+	distance: number
+	size: number
+	orbitSpeed: number
+	rotationSpeed: number
+	tilt: number
+	textureUrl: string
+	moon?: boolean
+	label?: string
+	modalPage?: ModalPageType
+}
+
+export const planetsSettings: Record<string, PlanetType> = {
 	earth: {
 		distance: 20,
 		size: 1,
@@ -6,6 +19,9 @@ export const planetsSettings = {
 		rotationSpeed: 0.01,
 		tilt: (23.5 * Math.PI) / 180,
 		textureUrl: "./textures/earth.jpg",
+		moon: true,
+		label: "Обо мне",
+		modalPage: "about",
 	},
 	mars: {
 		distance: 25,
@@ -14,6 +30,8 @@ export const planetsSettings = {
 		rotationSpeed: 0.008,
 		tilt: (25.2 * Math.PI) / 180,
 		textureUrl: "./textures/mars.jpg",
+		label: "Проекты",
+		modalPage: "projects",
 	},
 	mercury: {
 		distance: 10,
@@ -46,6 +64,8 @@ export const planetsSettings = {
 		rotationSpeed: 0.018,
 		tilt: (26.7 * Math.PI) / 180,
 		textureUrl: "./textures/saturn.jpg",
+		label: "Навыки",
+		modalPage: "skils",
 	},
 	neptune: {
 		distance: 80,

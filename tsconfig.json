@@ -16,7 +16,7 @@
 			"@molecules/*": ["molecules/*"],
 			"@organisms/*": ["organisms/*"],
 			"@templates/*": ["templates/*"],
-			"@hooks": ["hooks/*"],
+			"@hooks/*": ["hooks/*"],
 			"@store/*": ["store/*"],
 			"@config/*": ["config/*"]
 		}

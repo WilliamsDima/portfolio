@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react"
+import React, { FC, useRef, useState } from "react"
 import { Canvas, useFrame, useThree } from "@react-three/fiber"
 import { OrbitControls, Stars } from "@react-three/drei"
 import { MilkyWay } from "./MilkyWay"
@@ -10,7 +10,7 @@ import { Sun } from "./Sun"
 import { planetsSettings } from "./settings"
 import * as THREE from "three"
 
-function CameraAnimation({ targetPosition = [5, 10, 50], duration = 5000 }) {
+const CameraAnimation: FC = () => {
 	const { camera } = useThree()
 	const controlsRef = useRef(null)
 	const startPos = useRef(camera.position.clone())
@@ -21,19 +21,19 @@ function CameraAnimation({ targetPosition = [5, 10, 50], duration = 5000 }) {
 		if (!animating) return
 
 		const elapsed = performance.now() - startTime.current
-		let t = Math.min(elapsed / duration, 1)
+		let t = Math.min(elapsed / 5000, 1)
 
 		// плавное замедление в конце
 		t = t * (2 - t) // ease-out
 
 		camera.position.lerpVectors(
 			startPos.current,
-			new THREE.Vector3(...targetPosition),
+			new THREE.Vector3(...[5, 10, 50]),
 			t
 		)
 		camera.lookAt(0, 0, 0)
 
-		if (elapsed >= duration) {
+		if (elapsed >= 5000) {
 			setAnimating(false)
 			if (controlsRef.current) controlsRef.current.enabled = true
 		}
@@ -52,8 +52,23 @@ function CameraAnimation({ targetPosition = [5, 10, 50], duration = 5000 }) {
 const SolarSystem = () => {
 	const [starsCount] = useState(20000)
 
+	// const [selectedPlanet, setSelectedPlanet] = useState<THREE.Group | null>(null)
+
+	// useFrame(() => {
+	// 	if (selectedPlanet) {
+	// 		const target = selectedPlanet.position
+	// 			.clone()
+	// 			.add(new THREE.Vector3(5, 2, 5))
+	// 		camera.position.lerp(target, 0.05)
+	// 		camera.lookAt(selectedPlanet.position)
+	// 	}
+	// })
+
 	return (
 		<Canvas camera={{ position: [0, 40, 1400], fov: 60 }}>
+			{/* Показывает FPS и нагрузку */}
+			{/* <Stats /> */}
+
 			<ambientLight intensity={0.3} />
 			<pointLight position={[0, 0, 0]} intensity={2} />
 
@@ -79,15 +94,7 @@ const SolarSystem = () => {
 				return (
 					<React.Fragment key={i}>
 						<OrbitPath distance={planet.distance} />
-						<Planet
-							textureUrl={planet.textureUrl}
-							distance={planet.distance}
-							size={planet.size}
-							orbitSpeed={planet.orbitSpeed}
-							rotationSpeed={planet.rotationSpeed}
-							tilt={planet.tilt}
-							moon={key === "earth"}
-						/>
+						<Planet planet={planet} />
 					</React.Fragment>
 				)
 			})}
