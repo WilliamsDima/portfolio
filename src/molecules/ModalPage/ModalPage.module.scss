@@ -10,9 +10,52 @@
 	.content {
 		width: 100%;
 		height: 100%;
-		border: 1px solid colors.$main;
-		border-radius: 10px;
-		padding: 20px;
-		background-color: rgba(colors.$main, 0.1);
+		border-radius: 8px;
+		position: relative;
+
+		.textBlock {
+			display: flex;
+			.terminal_cursor {
+				display: block;
+				height: 14px;
+				width: 5px;
+				margin-left: 10px;
+				animation: curbl 1200ms linear infinite;
+			}
+		}
+
+		.closeButton {
+			width: 34px;
+			height: 34px;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background-color: transparent;
+			position: absolute;
+			top: 0;
+			right: 0;
+		}
+	}
+}
+
+@keyframes curbl {
+	0% {
+		background: #ffffff;
+	}
+
+	49% {
+		background: #ffffff;
+	}
+
+	60% {
+		background: transparent;
+	}
+
+	99% {
+		background: transparent;
+	}
+
+	100% {
+		background: #ffffff;
 	}
 }

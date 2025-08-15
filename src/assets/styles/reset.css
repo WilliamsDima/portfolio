@@ -87,3 +87,20 @@ textarea:not([rows]) {
 :target {
 	scroll-margin-block: 5ex;
 }
+
+button {
+	margin: 0;
+	padding: 0;
+	border: none;
+	cursor: pointer;
+}
+input {
+	background-color: transparent;
+	border: none;
+}
+
+input:focus {
+	outline: none;
+	box-shadow: none;
+	color: white;
+}
