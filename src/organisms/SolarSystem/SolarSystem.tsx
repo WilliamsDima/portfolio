@@ -6,8 +6,8 @@ import { Meteors } from "./Meteors"
 import { Planet } from "./Planet"
 import { OrbitPath } from "./OrbitPath"
 import { Sun } from "./Sun"
-import { planetsSettings } from "./settings"
 import * as THREE from "three"
+import { useAppSelector } from "@hooks/useStore"
 
 const CameraAnimation: FC = () => {
 	const { camera } = useThree()
@@ -51,6 +51,8 @@ const CameraAnimation: FC = () => {
 const SolarSystem = () => {
 	const [starsCount] = useState(20000)
 
+	const { appContent } = useAppSelector(store => store.app)
+
 	return (
 		<Canvas camera={{ position: [0, 40, 1400], fov: 60 }}>
 			{/* Показывает FPS и нагрузку */}
@@ -75,15 +77,16 @@ const SolarSystem = () => {
 
 			<Sun />
 
-			{Object.keys(planetsSettings).map((key, i) => {
-				const planet = planetsSettings[key]
-				return (
-					<React.Fragment key={i}>
-						<OrbitPath distance={planet.distance} />
-						<Planet planet={planet} />
-					</React.Fragment>
-				)
-			})}
+			{appContent?.settings?.planetsSettings &&
+				Object.keys(appContent.settings.planetsSettings).map((key, i) => {
+					const planet = appContent.settings.planetsSettings[key]
+					return (
+						<React.Fragment key={i}>
+							<OrbitPath distance={planet.distance} />
+							<Planet planet={planet} />
+						</React.Fragment>
+					)
+				})}
 		</Canvas>
 	)
 }

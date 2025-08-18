@@ -1,3 +1,4 @@
+import { useAppSelector } from "@hooks/useStore"
 import { useFrame, useLoader } from "@react-three/fiber"
 import { FC, ReactNode, RefObject, useRef } from "react"
 import {
@@ -7,7 +8,6 @@ import {
 	Mesh,
 	TextureLoader,
 } from "three"
-import { planetsSettings } from "./settings"
 
 const SaturnParticleRing = ({ innerRadius, outerRadius, segments }) => {
 	const points = []
@@ -39,19 +39,26 @@ type Props = {
 
 export const Saturn: FC<Props> = ({ label, planetRef, onClick }) => {
 	const ringRef = useRef<Mesh>(null)
+
+	const { appContent } = useAppSelector(store => store.app)
+
 	const planetTexture = useLoader(TextureLoader, "./textures/saturn.jpg")
 
 	useFrame(({ clock }) => {
 		const t = clock.getElapsedTime()
-		const angle = t * planetsSettings.saturn.orbitSpeed
+		const angle =
+			t * (appContent?.settings?.planetsSettings?.saturn?.orbitSpeed || 0)
 
 		// Вращение планеты вокруг солнца
 		if (planetRef.current) {
 			planetRef.current.position.x =
-				Math.cos(angle) * planetsSettings.saturn.distance
+				Math.cos(angle) *
+				(appContent?.settings?.planetsSettings?.saturn.distance || 0)
 			planetRef.current.position.z =
-				Math.sin(angle) * planetsSettings.saturn.distance
-			planetRef.current.rotation.y += planetsSettings.saturn.rotationSpeed
+				Math.sin(angle) *
+				(appContent?.settings?.planetsSettings?.saturn.distance || 0)
+			planetRef.current.rotation.y +=
+				appContent?.settings?.planetsSettings?.saturn.rotationSpeed || 0
 		}
 
 		// Пульсация свечения кольца
@@ -63,18 +70,37 @@ export const Saturn: FC<Props> = ({ label, planetRef, onClick }) => {
 
 	return (
 		<group ref={planetRef} onClick={onClick}>
-			<mesh rotation={[0, 0, planetsSettings.saturn.tilt]}>
-				<sphereGeometry args={[planetsSettings.saturn.size, 32, 32]} />
+			<mesh
+				rotation={[
+					0,
+					0,
+					appContent?.settings?.planetsSettings?.saturn?.tilt || 0,
+				]}
+			>
+				<sphereGeometry
+					args={[
+						appContent?.settings?.planetsSettings?.saturn?.size || 0,
+						32,
+						32,
+					]}
+				/>
 				<meshStandardMaterial map={planetTexture} />
 
 				{/* оси координат для ориентации */}
-				{/* <primitive object={new AxesHelper(solarSettings.saturn.size * 1.5)} /> */}
+				{/* <primitive object={new AxesHelper(planetsSettings.saturn.size * 1.5)} /> */}
 			</mesh>
 
 			{label}
 
 			{/* Кольцо */}
-			<mesh ref={ringRef} rotation={[0, 0, planetsSettings.saturn.tilt]}>
+			<mesh
+				ref={ringRef}
+				rotation={[
+					0,
+					0,
+					appContent?.settings?.planetsSettings?.saturn?.tilt || 0,
+				]}
+			>
 				<SaturnParticleRing innerRadius={3} outerRadius={4} segments={500} />
 			</mesh>
 		</group>

@@ -1,80 +1,66 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import styles from "./ModalPage.module.scss"
 import { useActions } from "@hooks/useActions"
 import { Modal } from "@atoms/Modal/Modal"
 import { useAppSelector } from "@hooks/useStore"
-import { animate, AnimatePresence, motion, useMotionValue } from "framer-motion"
+import { AnimatePresence, motion } from "framer-motion"
 import { Terminal } from "@atoms/Terminal/Terminal"
+import { TerminalLine } from "@atoms/Terminal/TerminalLine"
 
 const ModalPage = () => {
 	const { setModalPage, setSelectedPlanet } = useActions()
-	const { modalPage } = useAppSelector(store => store.app)
-
-	const text = "Привет! Я — твое имя."
-	const [displayedChars, setDisplayedChars] = useState(0)
-	const cursorX = useMotionValue(0)
+	const { modalPage, appContent } = useAppSelector(store => store.app)
 
 	const onClose = () => {
 		setModalPage(null)
 		setSelectedPlanet(null)
-		setDisplayedChars(0)
-	}
-
-	useEffect(() => {
-		if (!modalPage) return
-		let i = 0
-		const interval = setInterval(() => {
-			if (i < text.length) {
-				setDisplayedChars(i + 1)
-				animate(cursorX, 0, { type: "spring", stiffness: 300 })
-				i++
-			} else {
-				clearInterval(interval)
-			}
-		}, 100)
-		return () => clearInterval(interval)
-	}, [text, cursorX, modalPage])
-
-	const modalVariants = {
-		hidden: { opacity: 0, scale: 0.8, y: -20 },
-		visible: {
-			opacity: 1,
-			scale: 1,
-			y: 0,
-			transition: {
-				type: "spring",
-				stiffness: 300,
-				damping: 25,
-			},
-		},
-		exit: {
-			opacity: 0,
-			scale: 0.8,
-			y: -20,
-			transition: { duration: 0.2 },
-		},
 	}
 
 	return (
 		<Modal isOpen={!!modalPage} onClose={onClose}>
-			<div className={styles.wrapper}>
+			<div className={styles.wrapper} onClick={onClose}>
 				<AnimatePresence mode='wait'>
 					{modalPage && (
 						<motion.div
+							onClick={e => e.stopPropagation()}
 							className={styles.content}
-							variants={modalVariants}
+							variants={{
+								hidden: { opacity: 0, scale: 0.8, y: -20 },
+								visible: {
+									opacity: 1,
+									scale: 1,
+									y: 0,
+									transition: {
+										type: "spring",
+										stiffness: 300,
+										damping: 25,
+									},
+								},
+								exit: {
+									opacity: 0,
+									scale: 0.8,
+									y: -20,
+									transition: { duration: 0.2 },
+								},
+							}}
 							initial='hidden'
 							animate='visible'
 							exit='exit'
 						>
 							<Terminal onClose={onClose}>
-								<div className={styles.textBlock}>
-									<span>{text.slice(0, displayedChars)}</span>
-									<motion.span
-										className={styles.terminal_cursor}
-										style={{ x: cursorX }}
+								{appContent.about.main.lines.map((it, i) => (
+									<TerminalLine
+										text={it}
+										isLast={i === appContent.about.main.lines.length - 1}
+										key={i}
+										delyed={
+											i === 0
+												? 0
+												: appContent.about.main.lines.slice(0, i).join("")
+														.length * 30
+										}
 									/>
-								</div>
+								))}
 							</Terminal>
 						</motion.div>
 					)}

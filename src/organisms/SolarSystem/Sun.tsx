@@ -4,26 +4,34 @@ import { Bloom, EffectComposer, GodRays } from "@react-three/postprocessing"
 import { useEffect, useRef, useState } from "react"
 import { Mesh, TextureLoader } from "three"
 import { BlendFunction } from "postprocessing"
-import { solarSettings } from "./settings"
+import { useAppSelector } from "@hooks/useStore"
 
 export const Sun = () => {
 	const [emissiveIntensity, setEmissiveIntensity] = useState(0)
 	const sunRef = useRef<Mesh>(null)
-	const texture = useLoader(TextureLoader, "/textures/sun.jpg")
+	const texture = useLoader(TextureLoader, "./textures/sun.jpg")
+
+	const { appContent } = useAppSelector(store => store.app)
 
 	useFrame((_, delta) => {
 		if (sunRef.current) {
-			sunRef.current.rotation.y += delta * solarSettings.sun.rotationY // вращение солнца
+			sunRef.current.rotation.y +=
+				delta * appContent?.settings?.solarSettings?.sun?.rotationY // вращение солнца
 		}
 	})
 
 	useEffect(() => {
-		setEmissiveIntensity(solarSettings.sun.emissiveIntensity)
-	}, [])
+		setEmissiveIntensity(
+			appContent?.settings?.solarSettings?.sun?.emissiveIntensity
+		)
+	}, [appContent])
 
 	return (
 		<>
-			<Sphere ref={sunRef} args={[solarSettings.sun.size, 64, 64]}>
+			<Sphere
+				ref={sunRef}
+				args={[appContent?.settings?.solarSettings?.sun?.size, 64, 64]}
+			>
 				<meshStandardMaterial
 					map={texture}
 					emissive='#fff3b0'

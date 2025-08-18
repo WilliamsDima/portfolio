@@ -1,8 +1,10 @@
 @use "../../assets/styles/colors.scss" as colors;
 
 .container {
-	width: 50%;
-	height: 70%;
+	width: 100%;
+	height: 100%;
+	max-width: 100%;
+	max-height: 100%;
 	background-color: rgba(colors.$white, 0.1);
 	font-family: Menlo, Consolas, monospace;
 	font-size: 14px;
@@ -128,6 +130,28 @@
 	padding: 4px;
 	flex-grow: 1;
 	overflow-y: auto;
+
+	// macOS scrollbar
+	scrollbar-width: thin;
+	scrollbar-color: #888 transparent;
+
+	&::-webkit-scrollbar {
+		width: 8px;
+		height: 8px;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background-color: rgba(136, 136, 136, 0.6);
+		border-radius: 4px;
+	}
+
+	&::-webkit-scrollbar-thumb:hover {
+		background-color: rgba(136, 136, 136, 0.9);
+	}
+
+	&::-webkit-scrollbar-track {
+		background: transparent;
+	}
 }
 
 .output_text {
@@ -145,4 +169,72 @@
 	border: none;
 	color: #e6e6e6;
 	caret-color: #1eff8e;
+}
+
+.keywordYellow {
+	color: #facc15;
+}
+.keywordBlue {
+	color: #3b82f6;
+}
+.keywordCyan {
+	color: #06b6d4;
+}
+.keywordGreen {
+	color: #22c55e;
+}
+.keywordPink {
+	color: #ec4899;
+}
+.keywordPurple {
+	color: #a855f7;
+}
+.keywordOrange {
+	color: #f97316;
+}
+
+.textBlock {
+	display: flex;
+	align-items: center;
+	margin-bottom: 10px;
+
+	.outputLine {
+		margin: 0;
+		font-family: Menlo, Consolas, monospace;
+		font-size: 16px;
+		color: #e6e6e6;
+		white-space: pre-wrap;
+		display: inline-flex;
+		align-items: center;
+	}
+
+	.terminal_cursor {
+		display: block;
+		height: 14px;
+		width: 5px;
+		margin-left: 2px;
+		animation: curbl 1200ms linear infinite;
+	}
+}
+
+@keyframes curbl {
+	0% {
+		background: #ffffff;
+	}
+
+	49% {
+		background: #ffffff;
+	}
+
+	60% {
+		background: transparent;
+	}
+
+	99% {
+		background: transparent;
+	}
+
+	100% {
+		background: #ffffff;
+	}
 }

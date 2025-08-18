@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react"
 import "./GlobalLoading.scss"
 import cn from "classnames"
+import { useAppSelector } from "@hooks/useStore"
 
 const GlobalLoading = () => {
 	const [loading, setLoading] = useState(true)
+
+	const { appContent } = useAppSelector(store => store.app)
 
 	useEffect(() => {
 		document.body.classList.add("hidden")
@@ -30,7 +33,7 @@ const GlobalLoading = () => {
 	return (
 		<div
 			className={cn("loading-page", {
-				["active"]: loading,
+				["active"]: loading || !appContent,
 			})}
 		>
 			<div className='solar'>

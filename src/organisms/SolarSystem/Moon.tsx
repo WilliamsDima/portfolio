@@ -1,11 +1,17 @@
 import { useRef } from "react"
 import { useFrame, useLoader } from "@react-three/fiber"
 import { TextureLoader, Mesh } from "three"
-import { solarSettings } from "./settings"
+import { useAppSelector } from "@hooks/useStore"
 
 export const Moon = () => {
 	const moonRef = useRef<Mesh>(null)
-	const texture = useLoader(TextureLoader, solarSettings.moon.textureUrl)
+
+	const { appContent } = useAppSelector(store => store.app)
+
+	const texture = useLoader(
+		TextureLoader,
+		appContent?.settings?.solarSettings?.moon?.textureUrl
+	)
 
 	useFrame(({ clock }) => {
 		const t = clock.getElapsedTime()
@@ -18,8 +24,12 @@ export const Moon = () => {
 
 	return (
 		<group ref={moonRef}>
-			<mesh position={[solarSettings.moon.size + 2, 0, 0]}>
-				<sphereGeometry args={[solarSettings.moon.size, 32, 32]} />
+			<mesh
+				position={[appContent?.settings?.solarSettings?.moon?.size + 2, 0, 0]}
+			>
+				<sphereGeometry
+					args={[appContent?.settings?.solarSettings?.moon?.size, 32, 32]}
+				/>
 				<meshStandardMaterial map={texture} />
 			</mesh>
 		</group>
