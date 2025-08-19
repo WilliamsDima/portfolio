@@ -39,6 +39,9 @@ export interface IAppContent {
 		main: {
 			lines: string[]
 		}
+		skils: {
+			lines: string[]
+		}
 	}
 	settings: {
 		planetsSettings: Record<PlanetName, PlanetType>

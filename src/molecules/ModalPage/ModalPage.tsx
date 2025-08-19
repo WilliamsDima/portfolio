@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useMemo, useRef } from "react"
 import styles from "./ModalPage.module.scss"
 import { useActions } from "@hooks/useActions"
 import { Modal } from "@atoms/Modal/Modal"
@@ -12,6 +12,21 @@ const ModalPage = () => {
 	const { modalPage, appContent, modalPageSkipLine } = useAppSelector(
 		store => store.app
 	)
+
+	const outputRef = useRef<HTMLDivElement>(null)
+
+	const lines = useMemo(() => {
+		switch (modalPage) {
+			case "about":
+				return appContent.about.main.lines
+
+			case "skils":
+				return appContent.about.skils.lines
+
+			default:
+				return []
+		}
+	}, [modalPage, appContent])
 
 	const onClose = () => {
 		setModalPage(null)
@@ -50,17 +65,15 @@ const ModalPage = () => {
 							animate='visible'
 							exit='exit'
 						>
-							<Terminal onClose={onClose}>
-								{appContent.about.main.lines.map((it, i) => (
+							<Terminal onClose={onClose} outputRef={outputRef}>
+								{lines.map((it, i) => (
 									<TerminalLine
+										outputRef={outputRef}
 										text={it}
-										isLast={i === appContent.about.main.lines.length - 1}
+										isLast={i === lines.length - 1}
 										key={i}
 										delyed={
-											i === 0
-												? 0
-												: appContent.about.main.lines.slice(0, i).join("")
-														.length * 30
+											i === 0 ? 0 : lines.slice(0, i).join("").length * 30
 										}
 									/>
 								))}

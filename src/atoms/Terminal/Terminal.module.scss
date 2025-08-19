@@ -104,14 +104,14 @@
 	flex-direction: column;
 }
 
+.command {
+	color: #ccc;
+	margin-left: 10px;
+}
+
 .terminal_prompt {
 	display: flex;
 	align-items: center;
-	padding: 4px;
-}
-
-.terminal_prompt span {
-	margin-left: 4px;
 }
 
 .terminal_user {
@@ -190,6 +190,10 @@
 		align-items: center;
 		display: inline; // или inline-block, если нужно
 		white-space: inherit; // наследуем от родителя
+
+		.link {
+			color: colors.$link;
+		}
 	}
 
 	.terminal_cursor {

@@ -7,9 +7,15 @@ interface Props {
 	text: string
 	isLast: boolean
 	delyed: number
+	outputRef: React.RefObject<HTMLDivElement>
 }
 
-export const TerminalLine: React.FC<Props> = ({ text, isLast, delyed }) => {
+export const TerminalLine: React.FC<Props> = ({
+	text,
+	isLast,
+	delyed,
+	outputRef,
+}) => {
 	const { modalPage, modalPageSkipLine, appContent } = useAppSelector(
 		store => store.app
 	)
@@ -45,15 +51,37 @@ export const TerminalLine: React.FC<Props> = ({ text, isLast, delyed }) => {
 	// формируем вывод токенов с учётом displayedChars
 	const renderedTokens = useMemo(() => {
 		let printed = 0
+		const urlRegex = /(https?:\/\/[^\s]+)/g
+
 		return tokens.map((t, i) => {
 			const charsLeft = displayedChars - printed
 			const visible = charsLeft > 0 ? t.text.slice(0, charsLeft) : ""
 			printed += visible.length
-			return (
-				<span key={i} style={{ color: t.color }}>
-					{visible}
-				</span>
-			)
+
+			if (!visible) return null
+
+			// Разбиваем видимый кусок на обычный текст и ссылки
+			const parts = visible.split(urlRegex)
+			return parts.map((part, j) => {
+				if (urlRegex.test(part)) {
+					return (
+						<a
+							key={`${i}-${j}`}
+							href={part}
+							target='_blank'
+							rel='noopener noreferrer'
+							className={styles.link}
+						>
+							{part}
+						</a>
+					)
+				}
+				return (
+					<span key={`${i}-${j}`} style={{ color: t.color }}>
+						{part}
+					</span>
+				)
+			})
 		})
 	}, [tokens, displayedChars])
 
@@ -73,6 +101,11 @@ export const TerminalLine: React.FC<Props> = ({ text, isLast, delyed }) => {
 					count.current++
 					setDisplayedChars(count.current)
 					animate(cursorX, 0, { type: "spring", stiffness: 300 })
+
+					// автоскролл
+					if (outputRef?.current) {
+						outputRef.current.scrollTop = outputRef.current.scrollHeight
+					}
 				} else {
 					clearInterval(interval)
 				}
@@ -94,7 +127,7 @@ export const TerminalLine: React.FC<Props> = ({ text, isLast, delyed }) => {
 			{isLast && fullText.length === count.current && (
 				<motion.span
 					className={styles.terminal_cursor}
-					style={{ x: cursorX, y: -30 }}
+					style={{ x: cursorX, y: 5 }}
 				/>
 			)}
 		</div>
