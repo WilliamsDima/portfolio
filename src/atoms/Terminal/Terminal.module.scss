@@ -171,31 +171,13 @@
 	caret-color: #1eff8e;
 }
 
-.keywordYellow {
-	color: #facc15;
-}
-.keywordBlue {
-	color: #3b82f6;
-}
-.keywordCyan {
-	color: #06b6d4;
-}
-.keywordGreen {
-	color: #22c55e;
-}
-.keywordPink {
-	color: #ec4899;
-}
-.keywordPurple {
-	color: #a855f7;
-}
-.keywordOrange {
-	color: #f97316;
-}
-
 .textBlock {
-	display: flex;
-	align-items: center;
+	display: block;
+	width: 100%;
+	white-space: pre-wrap; // сохраняем пробелы и переносим строки
+	word-break: break-word; // перенос длинных слов
+	line-height: 1.5; // регулируем межстрочный интервал
+	font-family: monospace; // шрифт терминала
 	margin-bottom: 10px;
 
 	.outputLine {
@@ -206,6 +188,8 @@
 		white-space: pre-wrap;
 		display: inline-flex;
 		align-items: center;
+		display: inline; // или inline-block, если нужно
+		white-space: inherit; // наследуем от родителя
 	}
 
 	.terminal_cursor {

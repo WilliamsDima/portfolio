@@ -6,6 +6,33 @@ import {
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 
 export type ModalPageType = "about" | "skils" | "projects"
+export type NameWord =
+	| "React"
+	| "Redux"
+	| "JavaScript"
+	| "SCSS"
+	| "TypeScript"
+	| "Redux Toolkit"
+	| "RTK Query"
+	| "Axios"
+	| "React Native"
+	| "MobX"
+	| "Firebase"
+	| "Zustand"
+	| "Yandex map"
+	| "Google map"
+	| "Kameleoon"
+	| "RuYou"
+	| "Rocket Firm"
+	| "Toyota"
+	| "LIDL"
+	| "Nespresso"
+	| "IQOS"
+	| "Yves Rocher"
+	| "Home Credit Bank"
+	| "Росбанк"
+	| "Аскона"
+	| "Bigam"
 
 export interface IAppContent {
 	about: {
@@ -16,6 +43,9 @@ export interface IAppContent {
 	settings: {
 		planetsSettings: Record<PlanetName, PlanetType>
 		solarSettings: SolarSettingsType
+	}
+	styles: {
+		words: Record<NameWord, string>
 	}
 }
 

@@ -51,8 +51,8 @@ export const getImagesWorks = async works => {
 // 	await setDoc(
 // 		ref,
 // 		{
-// 			settings: {
-// 				solarSettings,
+// 			styles: {
+// 				words,
 // 			},
 // 		},
 // 		{ merge: true } // чтобы не потерять другие данные в data
