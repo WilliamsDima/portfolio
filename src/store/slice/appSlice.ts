@@ -22,6 +22,7 @@ export interface IAppContent {
 interface InitialState {
 	appContent: IAppContent | null
 	modalPage: ModalPageType | null
+	modalPageSkipLine: Record<ModalPageType, boolean>
 	selectedPlanet: PlanetType | null
 }
 
@@ -29,6 +30,11 @@ const initialState: InitialState = {
 	appContent: null,
 	modalPage: null,
 	selectedPlanet: null,
+	modalPageSkipLine: {
+		about: false,
+		projects: false,
+		skils: false,
+	},
 }
 
 export const appSlice = createSlice({
@@ -40,6 +46,12 @@ export const appSlice = createSlice({
 		},
 		setAppContent: (state, { payload }: PayloadAction<IAppContent | null>) => {
 			state.appContent = payload
+		},
+		setModalPageSkipLine: (
+			state,
+			{ payload }: PayloadAction<Record<ModalPageType, boolean>>
+		) => {
+			state.modalPageSkipLine = payload
 		},
 		setSelectedPlanet: (
 			state,

@@ -8,12 +8,15 @@ import { Terminal } from "@atoms/Terminal/Terminal"
 import { TerminalLine } from "@atoms/Terminal/TerminalLine"
 
 const ModalPage = () => {
-	const { setModalPage, setSelectedPlanet } = useActions()
-	const { modalPage, appContent } = useAppSelector(store => store.app)
+	const { setModalPage, setSelectedPlanet, setModalPageSkipLine } = useActions()
+	const { modalPage, appContent, modalPageSkipLine } = useAppSelector(
+		store => store.app
+	)
 
 	const onClose = () => {
 		setModalPage(null)
 		setSelectedPlanet(null)
+		setModalPageSkipLine({ ...modalPageSkipLine, [modalPage]: true })
 	}
 
 	return (
