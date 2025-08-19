@@ -42,6 +42,21 @@ export const TerminalLine: React.FC<Props> = ({ text, isLast, delyed }) => {
 
 	const fullText = useMemo(() => tokens.map(t => t.text).join(""), [tokens])
 
+	// формируем вывод токенов с учётом displayedChars
+	const renderedTokens = useMemo(() => {
+		let printed = 0
+		return tokens.map((t, i) => {
+			const charsLeft = displayedChars - printed
+			const visible = charsLeft > 0 ? t.text.slice(0, charsLeft) : ""
+			printed += visible.length
+			return (
+				<span key={i} style={{ color: t.color }}>
+					{visible}
+				</span>
+			)
+		})
+	}, [tokens, displayedChars])
+
 	useEffect(() => {
 		if (isSkip) {
 			setDisplayedChars(fullText.length)
@@ -69,21 +84,6 @@ export const TerminalLine: React.FC<Props> = ({ text, isLast, delyed }) => {
 			clearTimeout(timeout)
 		}
 	}, [fullText, cursorX, modalPage, delyed, isSkip])
-
-	// формируем вывод токенов с учётом displayedChars
-	const renderedTokens = useMemo(() => {
-		let printed = 0
-		return tokens.map((t, i) => {
-			const charsLeft = displayedChars - printed
-			const visible = charsLeft > 0 ? t.text.slice(0, charsLeft) : ""
-			printed += visible.length
-			return (
-				<span key={i} style={{ color: t.color }}>
-					{visible}
-				</span>
-			)
-		})
-	}, [tokens, displayedChars])
 
 	return (
 		<div className={styles.textBlock}>
