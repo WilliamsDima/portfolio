@@ -63,6 +63,8 @@ export const Saturn: FC<Props> = ({ label, planetRef, onClick }) => {
 
 		// Пульсация свечения кольца
 		if (ringRef.current) {
+			// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+			// @ts-ignore
 			ringRef.current.material.emissiveIntensity =
 				0.3 + Math.sin(clock.getElapsedTime() * 2) * 0.1
 		}

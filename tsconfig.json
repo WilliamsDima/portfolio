@@ -6,6 +6,8 @@
 		"moduleResolution": "Node",
 		"resolveJsonModule": true,
 		"skipLibCheck": true,
+		"noEmit": true,
+		"incremental": false,
 		"isolatedModules": true,
 		"esModuleInterop": true,
 		"lib": ["DOM", "DOM.Iterable", "ESNext"],
