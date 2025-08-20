@@ -21,6 +21,7 @@ export type PlanetType = {
 	label?: string
 	modalPage?: ModalPageType
 	name: PlanetName
+	isProjects?: boolean
 }
 
 export type SolarSettingsType = {

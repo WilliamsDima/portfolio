@@ -109,14 +109,14 @@ export const TerminalLine: React.FC<Props> = ({
 				} else {
 					clearInterval(interval)
 				}
-			}, 30)
+			}, appContent.settings.terminalTextSpeed)
 		}, delyed)
 
 		return () => {
 			clearInterval(interval)
 			clearTimeout(timeout)
 		}
-	}, [fullText, cursorX, modalPage, delyed, isSkip])
+	}, [fullText, cursorX, modalPage, delyed, isSkip, appContent])
 
 	return (
 		<div className={styles.textBlock}>

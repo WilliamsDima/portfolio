@@ -34,6 +34,15 @@ export type NameWord =
 	| "Аскона"
 	| "Bigam"
 
+export interface IProject {
+	name: string
+	technology: string[]
+	id: number
+	link: string
+	date: Date
+	color: string
+}
+
 export interface IAppContent {
 	about: {
 		main: {
@@ -43,9 +52,11 @@ export interface IAppContent {
 			lines: string[]
 		}
 	}
+	projects: Record<number, IProject>
 	settings: {
 		planetsSettings: Record<PlanetName, PlanetType>
 		solarSettings: SolarSettingsType
+		terminalTextSpeed: number
 	}
 	styles: {
 		words: Record<NameWord, string>
@@ -57,6 +68,8 @@ interface InitialState {
 	modalPage: ModalPageType | null
 	modalPageSkipLine: Record<ModalPageType, boolean>
 	selectedPlanet: PlanetType | null
+	images: { id: number; urls: string[] }[]
+	imageSelect: null | { id: number; urls: string[] }
 }
 
 const initialState: InitialState = {
@@ -68,6 +81,8 @@ const initialState: InitialState = {
 		projects: false,
 		skils: false,
 	},
+	images: [],
+	imageSelect: null,
 }
 
 export const appSlice = createSlice({
@@ -79,6 +94,18 @@ export const appSlice = createSlice({
 		},
 		setAppContent: (state, { payload }: PayloadAction<IAppContent | null>) => {
 			state.appContent = payload
+		},
+		setImageSelect: (
+			state,
+			{ payload }: PayloadAction<null | { id: number; urls: string[] }>
+		) => {
+			state.imageSelect = payload
+		},
+		setImages: (
+			state,
+			{ payload }: PayloadAction<{ id: number; urls: string[] }[]>
+		) => {
+			state.images = payload
 		},
 		setModalPageSkipLine: (
 			state,

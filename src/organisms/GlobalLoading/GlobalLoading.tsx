@@ -6,7 +6,7 @@ import { useAppSelector } from "@hooks/useStore"
 const GlobalLoading = () => {
 	const [loading, setLoading] = useState(true)
 
-	const { appContent } = useAppSelector(store => store.app)
+	const { appContent, images } = useAppSelector(store => store.app)
 
 	useEffect(() => {
 		document.body.classList.add("hidden")
@@ -33,7 +33,7 @@ const GlobalLoading = () => {
 	return (
 		<div
 			className={cn("loading-page", {
-				["active"]: loading || !appContent,
+				["active"]: loading || !appContent || !images.length,
 			})}
 		>
 			<div className='solar'>

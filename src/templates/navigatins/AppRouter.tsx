@@ -4,25 +4,36 @@ import MainPage from "@templates/MainPage/MainPage"
 import NotFoundPage from "@templates/NotFoundPage/NotFoundPage"
 import GlobalLoading from "@organisms/GlobalLoading/GlobalLoading"
 import { useEffect } from "react"
-import { getData } from "@config/firebase"
+import { getData, getImages } from "@config/firebase"
 import { useActions } from "@hooks/useActions"
 import { useAppSelector } from "@hooks/useStore"
+import { IAppContent } from "@store/slice/appSlice"
 
 const AppRouter = () => {
-	const { setAppContent } = useActions()
+	const { setAppContent, setImages } = useActions()
 
-	const { appContent } = useAppSelector(store => store.app)
+	const { appContent, images } = useAppSelector(store => store.app)
+
+	const getImagesHandler = async (res: IAppContent) => {
+		const ids = Object.values(res.projects).map(it => it.id)
+		const urls = await getImages(ids)
+
+		Promise.all(urls).then(values => {
+			setImages(values)
+		})
+	}
 
 	useEffect(() => {
 		getData().then(res => {
 			setAppContent(res)
+			getImagesHandler(res)
 		})
 	}, [])
 
 	return (
 		<>
 			<GlobalLoading />
-			{!!appContent && (
+			{!!appContent && !!images.length && (
 				<BrowserRouter>
 					<Routes>
 						<Route path={AppRoutes.main} element={<MainPage />} />

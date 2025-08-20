@@ -6,12 +6,13 @@ import { useAppSelector } from "@hooks/useStore"
 import { AnimatePresence, motion } from "framer-motion"
 import { Terminal } from "@atoms/Terminal/Terminal"
 import { TerminalLine } from "@atoms/Terminal/TerminalLine"
+import ProjectsContentModal from "@molecules/ProjectsContentModal/ProjectsContentModal"
+import ProjectsCarousel from "@molecules/ProjectsCarousel/ProjectsCarousel"
 
 const ModalPage = () => {
 	const { setModalPage, setSelectedPlanet, setModalPageSkipLine } = useActions()
-	const { modalPage, appContent, modalPageSkipLine } = useAppSelector(
-		store => store.app
-	)
+	const { modalPage, appContent, modalPageSkipLine, imageSelect } =
+		useAppSelector(store => store.app)
 
 	const outputRef = useRef<HTMLDivElement>(null)
 
@@ -66,22 +67,35 @@ const ModalPage = () => {
 							exit='exit'
 						>
 							<Terminal onClose={onClose} outputRef={outputRef}>
-								{lines.map((it, i) => (
-									<TerminalLine
-										outputRef={outputRef}
-										text={it}
-										isLast={i === lines.length - 1}
-										key={i}
-										delyed={
-											i === 0 ? 0 : lines.slice(0, i).join("").length * 30
-										}
-									/>
-								))}
+								{modalPage === "projects" ? (
+									<ProjectsContentModal />
+								) : (
+									<>
+										{lines.map((it, i) => (
+											<TerminalLine
+												outputRef={outputRef}
+												text={it}
+												isLast={i === lines.length - 1}
+												key={i}
+												delyed={
+													i === 0
+														? 0
+														: lines.slice(0, i).join("").length *
+														  appContent.settings.terminalTextSpeed
+												}
+											/>
+										))}
+									</>
+								)}
 							</Terminal>
 						</motion.div>
 					)}
 				</AnimatePresence>
 			</div>
+
+			<AnimatePresence mode='wait'>
+				{!!imageSelect && <ProjectsCarousel />}
+			</AnimatePresence>
 		</Modal>
 	)
 }

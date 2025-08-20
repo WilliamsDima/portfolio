@@ -1,0 +1,72 @@
+@use "../../assets/styles/colors.scss" as colors;
+
+.items {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.item {
+	display: flex;
+	align-items: center;
+}
+
+.folder {
+	font-family: Menlo, Consolas, monospace;
+	font-size: 16px;
+}
+
+.arrow {
+	color: #949090;
+	font-family: Menlo, Consolas, monospace;
+	font-size: 16px;
+}
+
+.name {
+	font-family: Menlo, Consolas, monospace;
+	font-size: 16px;
+	text-decoration: underline;
+	cursor: pointer;
+	position: relative;
+	color: colors.$white;
+
+	.technology {
+		visibility: hidden;
+		position: absolute;
+		z-index: 100;
+		background-color: #eeeeee;
+		padding: 5px;
+		top: 30px;
+		left: 0;
+	}
+
+	&:hover {
+		.technology {
+			visibility: visible;
+		}
+	}
+}
+
+.images {
+	color: colors.$link;
+	position: relative;
+
+	.image {
+		width: 300px;
+		height: 150px;
+		background-position: 50%;
+		background-repeat: no-repeat;
+		background-size: contain;
+		position: absolute;
+		visibility: hidden;
+		z-index: 100;
+	}
+
+	&:hover {
+		.image {
+			visibility: visible;
+		}
+	}
+}
