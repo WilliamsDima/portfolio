@@ -8,11 +8,14 @@ import { getData, getImages } from "@config/firebase"
 import { useActions } from "@hooks/useActions"
 import { useAppSelector } from "@hooks/useStore"
 import { IAppContent } from "@store/slice/appSlice"
+import { useBlockAdded } from "@hooks/useBlockAdded"
 
 const AppRouter = () => {
-	const { setAppContent, setImages } = useActions()
+	const { setAppContent, setImages, setThreeJsIsLoad } = useActions()
 
 	const { appContent, images } = useAppSelector(store => store.app)
+
+	useBlockAdded("planetText", v => setThreeJsIsLoad(!v))
 
 	const getImagesHandler = async (res: IAppContent) => {
 		const ids = Object.values(res.projects).map(it => it.id)

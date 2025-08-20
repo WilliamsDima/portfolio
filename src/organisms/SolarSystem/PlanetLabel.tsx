@@ -47,7 +47,11 @@ export const PlanetLabel: FC<Props> = ({ selected, planet, onClick }) => {
 								transform // делаем Html частью сцены, а не абсолютным
 								sprite // Html всегда смотрит на камеру
 							>
-								<div className={styles.planetText} onClick={onClick}>
+								<div
+									id='planetText'
+									className={styles.planetText}
+									onClick={onClick}
+								>
 									{planet.label}
 								</div>
 							</Html>

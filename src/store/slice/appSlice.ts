@@ -70,6 +70,7 @@ interface InitialState {
 	selectedPlanet: PlanetType | null
 	images: { id: number; urls: string[] }[]
 	imageSelect: null | { id: number; urls: string[] }
+	threeJsIsLoad: boolean
 }
 
 const initialState: InitialState = {
@@ -83,12 +84,16 @@ const initialState: InitialState = {
 	},
 	images: [],
 	imageSelect: null,
+	threeJsIsLoad: true,
 }
 
 export const appSlice = createSlice({
 	name: "app",
 	initialState,
 	reducers: {
+		setThreeJsIsLoad: (state, { payload }: PayloadAction<boolean>) => {
+			state.threeJsIsLoad = payload
+		},
 		setModalPage: (state, { payload }: PayloadAction<null | ModalPageType>) => {
 			state.modalPage = payload
 		},

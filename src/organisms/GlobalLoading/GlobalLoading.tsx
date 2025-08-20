@@ -6,7 +6,9 @@ import { useAppSelector } from "@hooks/useStore"
 const GlobalLoading = () => {
 	const [loading, setLoading] = useState(true)
 
-	const { appContent, images } = useAppSelector(store => store.app)
+	const { appContent, images, threeJsIsLoad } = useAppSelector(
+		store => store.app
+	)
 
 	useEffect(() => {
 		document.body.classList.add("hidden")
@@ -33,7 +35,7 @@ const GlobalLoading = () => {
 	return (
 		<div
 			className={cn("loading-page", {
-				["active"]: loading || !appContent || !images.length,
+				["active"]: loading || !appContent || !images.length || threeJsIsLoad,
 			})}
 		>
 			<div className='solar'>
