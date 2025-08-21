@@ -1,69 +1,40 @@
-# React + TypeScript + Vite
+# 💻 Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Мой персональный сайт-портфолио, демонстрирующий мои проекты и навыки в веб-разработке.  
+Автодеплой настроен на [Timeweb](https://timeweb.com/), так что сайт всегда актуален после пуша в ветку `master`.
 
-Currently, two official plugins are available:
+🌐 Ссылка на сайт: [https://williams-dev.ru/](https://williams-dev.ru/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🚀 Стек технологий
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+[![react](https://img.shields.io/static/v1?label=react&message=19.1.1&color=61DAFB&style=for-the-badge&logo=react&logoColor=white)](https://reactjs.org/)
+[![redux](https://img.shields.io/static/v1?label=redux&message=9.2.0&color=764ABC&style=for-the-badge&logo=redux&logoColor=white)](https://redux.js.org/)
+[![typescript](https://img.shields.io/static/v1?label=typescript&message=5.8.3&color=3178C6&style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![vite](https://img.shields.io/static/v1?label=vite&message=7.1.0&color=646CFF&style=for-the-badge&logo=vite&logoColor=white)](https://vitejs.dev/)
+[![sass](https://img.shields.io/static/v1?label=sass&message=1.90.0&color=CC6699&style=for-the-badge&logo=sass&logoColor=white)](https://sass-lang.com/)
+[![axios](https://img.shields.io/static/v1?label=axios&message=1.11.0&color=5A29E4&style=for-the-badge&logo=axios&logoColor=white)](https://axios-http.com/)
+[![firebase](https://img.shields.io/static/v1?label=firebase&message=12.1.0&color=FFCA28&style=for-the-badge&logo=firebase&logoColor=white)](https://firebase.google.com/)
+[![threejs](https://img.shields.io/static/v1?label=three.js&message=0.179.1&color=000000&style=for-the-badge&logo=three.js&logoColor=white)](https://threejs.org/)
+[![react-three-fiber](https://img.shields.io/static/v1?label=react-three-fiber&message=9.3.0&color=61DAFB&style=for-the-badge)](https://docs.pmnd.rs/react-three-fiber/getting-started/introduction)
+[![react-three-drei](https://img.shields.io/static/v1?label=@react-three/drei&message=10.6.1&color=0F0F0F&style=for-the-badge)](https://github.com/pmndrs/drei)
+[![react-three-postprocessing](https://img.shields.io/static/v1?label=@react-three/postprocessing&message=3.0.4&color=000000&style=for-the-badge)](https://github.com/pmndrs/postprocessing)
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## ⚡ Скрипты
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+```bash
+# Запуск локального сервера
+npm run dev
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+# Сборка проекта
+npm run build
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+# Просмотр сборки
+npm run preview
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+# Линтинг кода
+npm run lint
 ```
