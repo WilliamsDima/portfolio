@@ -27,5 +27,4 @@ jobs:
           password: ${{ secrets.FTP_PASS }}
           server-dir: /MyPortfoleo/public_html/
           local-dir: ./dist/
-          protocol: ftps
           passive: true
