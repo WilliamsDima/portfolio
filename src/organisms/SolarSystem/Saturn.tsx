@@ -58,7 +58,8 @@ export const Saturn: FC<Props> = ({ label, planetRef, onClick }) => {
 				Math.sin(angle) *
 				(appContent?.settings?.planetsSettings?.saturn.distance || 0)
 			planetRef.current.rotation.y +=
-				appContent?.settings?.planetsSettings?.saturn.rotationSpeed || 0
+				appContent?.settings?.planetsSettings?.saturn.rotationSpeed /
+					appContent.settings.globalSpeed || 0
 		}
 
 		// Пульсация свечения кольца
@@ -71,7 +72,18 @@ export const Saturn: FC<Props> = ({ label, planetRef, onClick }) => {
 	})
 
 	return (
-		<group ref={planetRef} onClick={onClick}>
+		<group
+			ref={planetRef}
+			onClick={onClick}
+			onPointerOver={e => {
+				e.stopPropagation()
+				document.body.style.cursor = "pointer"
+			}}
+			onPointerOut={e => {
+				e.stopPropagation()
+				document.body.style.cursor = "auto"
+			}}
+		>
 			<mesh
 				rotation={[
 					0,

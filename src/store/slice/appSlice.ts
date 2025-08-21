@@ -57,6 +57,7 @@ export interface IAppContent {
 		planetsSettings: Record<PlanetName, PlanetType>
 		solarSettings: SolarSettingsType
 		terminalTextSpeed: number
+		globalSpeed: number
 	}
 	styles: {
 		words: Record<NameWord, string>

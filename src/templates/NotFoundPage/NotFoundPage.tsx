@@ -1,13 +1,25 @@
 import ButtonSpace from "@atoms/ButtonSpace/ButtonSpace"
-import { useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import styles from "./NotFoundPage.module.scss"
+import { useEffect } from "react"
+import { useActions } from "@hooks/useActions"
 
 const NotFoundPage = () => {
+	const { setThreeJsIsLoad } = useActions()
 	const navigation = useNavigate()
 
+	const location = useLocation()
+
 	const goMain = () => {
+		setThreeJsIsLoad(true)
 		navigation("/")
 	}
+
+	useEffect(() => {
+		const isHome = location.pathname === "/"
+
+		setThreeJsIsLoad(isHome)
+	}, [location])
 
 	return (
 		<div className={styles.page}>

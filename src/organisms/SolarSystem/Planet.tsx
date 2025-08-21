@@ -18,7 +18,7 @@ export const Planet: FC<Props> = ({ planet }) => {
 	const planetRef = useRef<Group>(null)
 	const { camera } = useThree()
 
-	const { selectedPlanet } = useAppSelector(store => store.app)
+	const { selectedPlanet, appContent } = useAppSelector(store => store.app)
 
 	const [selected, setSelected] = useState<Group | null>(null)
 
@@ -36,7 +36,7 @@ export const Planet: FC<Props> = ({ planet }) => {
 
 	useFrame(({ clock }) => {
 		const t = clock.getElapsedTime()
-		const angle = t * planet.orbitSpeed
+		const angle = (t * planet.orbitSpeed) / appContent.settings.globalSpeed
 
 		// орбита планеты вокруг Солнца
 		planetRef.current.position.x = Math.cos(angle) * planet.distance
@@ -88,6 +88,22 @@ export const Planet: FC<Props> = ({ planet }) => {
 		<group
 			ref={planetRef}
 			onClick={() => planet.label && onSelect(planetRef.current)}
+			onPointerOver={
+				planet.label
+					? e => {
+							e.stopPropagation()
+							document.body.style.cursor = "pointer"
+					  }
+					: undefined
+			}
+			onPointerOut={
+				planet.label
+					? e => {
+							e.stopPropagation()
+							document.body.style.cursor = "pointer"
+					  }
+					: undefined
+			}
 		>
 			<mesh rotation={[0, 0, planet.tilt]}>
 				<sphereGeometry args={[planet.size, 32, 32]} />
