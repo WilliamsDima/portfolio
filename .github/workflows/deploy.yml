@@ -42,4 +42,4 @@ jobs:
           server-dir: /MyPortfoleo/public_html/
           local-dir: ./dist/
           passive: true
-          timeout: 60000
+          timeout: 80000
